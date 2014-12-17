@@ -13,7 +13,7 @@ function export_subscribers() {
   // output the column headings
   fputcsv($output, array('EMAIL'));
 
-  $rows = $wpdb->get_results("SELECT post_title FROM wp_posts WHERE post_type='sd_subscriber' AND post_status='publish'", ARRAY_A);
+  $rows = $wpdb->get_results("SELECT post_title FROM wp_posts WHERE post_type='sn_subscriber' AND post_status='publish'", ARRAY_A);
 
   // loop over the rows, outputting them
   foreach ($rows as $row) {
@@ -38,7 +38,7 @@ function add_subscriber_form_process() {
     // Construct the post
     $post = array(
       'post_title'  => $email,
-      'post_type'   => 'sd_subscriber',
+      'post_type'   => 'sn_subscriber',
       'post_status' => 'publish'
     );
 
