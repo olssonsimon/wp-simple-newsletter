@@ -17,7 +17,7 @@ function sd_subscriber() {
     'not_found_in_trash'  => __( 'Not found in Trash', 'seodesign' ),
   );
   $args = array(
-    'label'               => __( 'sd_subscriber', 'seodesign' ),
+    'label'               => __( 'sn_subscriber', 'seodesign' ),
     'description'         => __( 'Post Type Description', 'seodesign' ),
     'labels'              => $labels,
     'supports'            => array( 'title' ),
@@ -35,9 +35,9 @@ function sd_subscriber() {
     'capability_type'     => 'post',
     'exclude_from_search' => true
   );
-  register_post_type( 'sd_subscriber', $args );
+  register_post_type( 'sn_subscriber', $args );
 
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'sd_subscriber', 0 );
+add_action( 'init', 'sn_subscriber', 0 );
