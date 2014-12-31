@@ -9,6 +9,15 @@
 
 defined('ABSPATH') or die("No script kiddies please!");
 
+// Define some good constants.
+define( 'SN_VERSION', '2.0.0' );
+define( 'SN__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'SN__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
+// Include the class
+include("src/simple-newsletter.class.php");
+
+
 include_once "includes/posttype-subscriber.php";
 include_once "includes/custom-subscriber-fields.php";
 include_once "includes/admin-panel.php";
