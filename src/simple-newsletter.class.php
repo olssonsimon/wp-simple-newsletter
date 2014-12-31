@@ -38,22 +38,26 @@ class SimpleNewsletter
 		// Hook into the 'init' action
 		add_action( 'init', array($this, 'init'), 0 );
 
+		// Include export functions
  		add_action('wp_ajax_export_subscribers', array('SimpleNewsletter\Export','CSV') );
-		add_action('wp_ajax_nopriv_export_subscribers', array($this, 'export_subscribers') );
+		add_action('wp_ajax_nopriv_export_subscribers', array('SimpleNewsletter\Export','CSV') );
 
- 		// add_action( 'template_redirect', 'add_subscriber_form_process' );
+		// Save form
+ 		add_action( 'template_redirect', array($this, 'add_subscriber_form_process') );
  	}
 
  	public function init() {
-
+ 		// Register post type
  		register_post_type( $this->post_type, $this->getPostTypeArgs() );
  	}
 
  	public function addShortcodes() {
- 		add_shortcode( $this->shortcode , 'getForm' );
+ 		// Add shortcode for including form in pages.
+ 		add_shortcode( $this->shortcode, array($this, 'getForm') );
  	}
 
  	public function addFilters() {
+ 		// Change from "title" to "email" on post type editor pages.
  		add_filter( 'manage_edit-sn_subscriber_columns', array($this, 'custom_subscriber_columns') ) ;
 		add_filter( 'enter_title_here', array($this, 'subscriber_custom_enter_title') );
  	}
@@ -114,6 +118,8 @@ class SimpleNewsletter
 		include( SN__PLUGIN_DIR . "views/settings.php");
 	}
 
+
+	// Get AJAX-url for export.
 	public function getExportURL() {
 		return add_query_arg(array(
 	      'action' => 'export_subscribers',
