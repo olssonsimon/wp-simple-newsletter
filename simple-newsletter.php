@@ -18,5 +18,8 @@ define( 'SN__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Include Export-functions.
 include("src/export.php");
 
+// Include Form-functions.
+include("src/forms.php");
+
 // Include the class
 include("src/simple-newsletter.class.php");

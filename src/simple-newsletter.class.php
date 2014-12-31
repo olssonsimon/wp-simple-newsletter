@@ -3,6 +3,7 @@
  * @package simple-newsletter
  */
 
+use SimpleNewsletter\Form as Form;
 use SimpleNewsletter\Export as Export;
 
 class SimpleNewsletter
@@ -38,12 +39,21 @@ class SimpleNewsletter
 		// Hook into the 'init' action
 		add_action( 'init', array($this, 'init'), 0 );
 
+		// Hook into the 'init' action
+		add_action( 'admin_init', array('SimpleNewsletter\Form', 'settings') );
+
 		// Include export functions
  		add_action('wp_ajax_export_subscribers', array('SimpleNewsletter\Export','CSV') );
 		add_action('wp_ajax_nopriv_export_subscribers', array('SimpleNewsletter\Export','CSV') );
 
 		// Save form
  		add_action( 'template_redirect', array($this, 'add_subscriber_form_process') );
+
+ 		// Hook into the 'init' action
+		add_action( 'wp_footer', array($this, 'footer'), 0 );
+
+		// wp_enqueue_scripts action hook to link only 
+		add_action( 'wp_enqueue_scripts', array($this, 'scriptsandcss') );
  	}
 
  	public function init() {
@@ -189,4 +199,30 @@ class SimpleNewsletter
 		}
 	}
 
+	// Footer Hook
+	public function footer() {
+
+		$options = get_option( 'sn_subscriber_settings' );
+
+		if ($options['sn_show_footer'])
+			$this->fixed_footer();
+	}
+
+	// Include view for fixed footer.
+	public function fixed_footer() {
+		include( SN__PLUGIN_DIR . "views/fixed_footer.php");
+	}
+
+	// Embed scripts and css.
+	public function scriptsandcss() {
+		
+		$options = get_option( 'sn_subscriber_settings' );
+		if ($options['sn_show_footer']) {
+
+			wp_enqueue_style( 'simple-newsletter', SN__PLUGIN_URL . 'assets/css/simple-newsletter.css' );
+		}
+	}
+
 } new SimpleNewsletter;
+
+
