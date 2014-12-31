@@ -12,11 +12,11 @@ function subscriber_create_menu() {
 function subscriber_settings_page() {
 ?>
 <div class="wrap">
-  <h2>Subscribers</h2>
+  <h2><?php _e('Subscribers', 'simplenewsletter'); ?></h2>
   <br>
 
-  <h3>Shortcode</h3>
-  <p>Use this code to access the newsletter form: <input type="text" readonly value="[sn_form]"/></p>
+  <h3><?php _e('Shortcode', 'simplenewsletter'); ?></h3>
+  <p><?php _e('Use this code to access the newsletter form:', 'simplenewsletter'); ?> <input type="text" readonly value="[sn_form]"/></p>
 
   <?php
     $exportURL = add_query_arg(array(
@@ -25,7 +25,7 @@ function subscriber_settings_page() {
     ), admin_url('admin-ajax.php'));
   ?>
 
-  <h3>Export</h3>
-  <a href="<?php echo $exportURL; ?>" class="button">Export subscribers</a>
+  <h3><?php _e('Export', 'simplenewsletter'); ?></h3>
+  <a href="<?php echo $exportURL; ?>" class="button"><?php _e('Export', 'simplenewsletter'); ?> <?php _e('Subscribers', 'simplenewsletter'); ?></a>
 </div>
 <?php } ?>
