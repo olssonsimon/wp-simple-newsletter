@@ -20,5 +20,3 @@ include("src/export.php");
 
 // Include the class
 include("src/simple-newsletter.class.php");
-
-include_once "includes/form-hooks.php";

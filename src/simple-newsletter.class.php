@@ -39,7 +39,7 @@ class SimpleNewsletter
 		add_action( 'init', array($this, 'init'), 0 );
 
  		add_action('wp_ajax_export_subscribers', array('SimpleNewsletter\Export','CSV') );
-		// add_action('wp_ajax_nopriv_export_subscribers', 'export_subscribers');
+		add_action('wp_ajax_nopriv_export_subscribers', array($this, 'export_subscribers') );
 
  		// add_action( 'template_redirect', 'add_subscriber_form_process' );
  	}
