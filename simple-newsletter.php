@@ -1,11 +1,9 @@
 <?php
 /**
-* Plugin Name: Simple Newsletter
-* Plugin URI: 
-* Description: A very simple newsletter
-* Version: 1.0
-* Author: Simon Olsson
-* Author URI: 
+* Plugin Name: Simple Newsletter 2
+* Description: A very simple but awsome newsletter
+* Version: 2.0
+* Author: Simon Olsson & Rasmus Kjellberg
 **/
 
 defined('ABSPATH') or die("No script kiddies please!");
