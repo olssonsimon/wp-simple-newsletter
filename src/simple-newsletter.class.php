@@ -118,7 +118,6 @@ class SimpleNewsletter
 		include( SN__PLUGIN_DIR . "views/settings.php");
 	}
 
-
 	// Get AJAX-url for export.
 	public function getExportURL() {
 		return add_query_arg(array(
@@ -179,8 +178,14 @@ class SimpleNewsletter
 		// Reset the form fields
 		$_POST = array();
 
+		/*
+		 * @todo: Show the user a success message.
+		*/
+
 		} else {
-			// @todo: ERROR HANDLING
+			/*
+			 * @todo: Error handling.
+			*/
 		}
 	}
 
