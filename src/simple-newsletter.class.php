@@ -2,6 +2,9 @@
 /**
  * @package simple-newsletter
  */
+
+use SimpleNewsletter\Export as Export;
+
 class SimpleNewsletter
 {
 	protected $post_type = 'sn_subscriber';
@@ -19,6 +22,9 @@ class SimpleNewsletter
 		// Add shortcodes
 		$this->addShortcodes();
 
+		// Add filters
+		$this->addFilters();
+
  	}
 
  	public function addActions() {
@@ -32,8 +38,7 @@ class SimpleNewsletter
 		// Hook into the 'init' action
 		add_action( 'init', array($this, 'init'), 0 );
 
- 		// add_action( 'init', 'sn_subscriber', 0 );
- 		// add_action('wp_ajax_export_subscribers', 'export_subscribers');
+ 		add_action('wp_ajax_export_subscribers', array('SimpleNewsletter\Export','CSV') );
 		// add_action('wp_ajax_nopriv_export_subscribers', 'export_subscribers');
 
  		// add_action( 'template_redirect', 'add_subscriber_form_process' );
@@ -49,8 +54,8 @@ class SimpleNewsletter
  	}
 
  	public function addFilters() {
- 		// add_filter( 'manage_edit-sn_subscriber_columns', 'custom_subscriber_columns' ) ;
-		// add_filter( 'enter_title_here', 'subscriber_custom_enter_title' );
+ 		add_filter( 'manage_edit-sn_subscriber_columns', array($this, 'custom_subscriber_columns') ) ;
+		add_filter( 'enter_title_here', array($this, 'subscriber_custom_enter_title') );
  	}
 
  	// Hook Plugins Loaded
@@ -104,12 +109,73 @@ class SimpleNewsletter
 		  return $args;
 	}
 
+	// Include view with settings page	
 	public function initSettingsPage() {
 		include( SN__PLUGIN_DIR . "views/settings.php");
 	}
 
-	public function getForm($atts) {
+	public function getExportURL() {
+		return add_query_arg(array(
+	      'action' => 'export_subscribers',
+	      'nc'     => time(),
+	    ), admin_url('admin-ajax.php'));
+	}
+
+	// Include view with form
+	public function getForm($atts = array()) {
 		include( SN__PLUGIN_DIR . "views/form.php");
+	}
+
+	// Change column name from 'Title' to 'Email' in the admin
+	public function custom_subscriber_columns( $columns ) {
+	  $columns = array(
+	    'cb'    => '<input type="checkbox" />',
+	    'title' => __( 'Email', 'simplenewsletter' )
+	  );
+	  return $columns;
+	}
+
+	// Change 'Enter title here' text to 'Enter email here' in the admin
+	public function subscriber_custom_enter_title( $input ) {
+	  global $post_type;
+
+	  if ( is_admin() && 'sn_subscriber' == $post_type )
+	    return __( 'Enter email here', 'simplenewsletter' );
+	  return $input;
+	}
+
+	// Handle the form submit 
+	public function add_subscriber_form_process() {
+
+		if(!isset($_POST['add_subscriber']))
+			return;
+
+		// Validate the email
+		if ( isset( $_POST['email'] ) && filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
+		
+		// Retreive the email
+		$email = $_POST['email'];
+
+		/*
+		 * @todo: Check for email in database so we don't get duplicates.
+		*/
+
+		// Construct the post
+		$post = array(
+		  'post_title'  => $email,
+		  'post_type'   => $this->post_type,
+		  'post_status' => 'publish'
+		);
+
+		// Insert the post
+		wp_insert_post( $post );
+
+		// Reset the form fields
+		$_POST = array();
+
+		} else {
+			// @todo: ERROR HANDLING
+		}
 	}
 
 } new SimpleNewsletter;
