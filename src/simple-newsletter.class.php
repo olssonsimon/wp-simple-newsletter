@@ -23,7 +23,10 @@ class SimpleNewsletter
  	public function addActions() {
 
  		// create custom plugin settings menu
-		add_action('admin_menu', array($this, 'create_menu') );
+		add_action('admin_menu', array($this, 'admin_menu') );
+
+		// Load plugin textdomain.
+		add_action( 'plugins_loaded', array($this, 'plugins_loaded') );
 
  		// add_action( 'init', 'sn_subscriber', 0 );
  		// add_action('wp_ajax_export_subscribers', 'export_subscribers');
@@ -41,8 +44,12 @@ class SimpleNewsletter
 		// add_filter( 'enter_title_here', 'subscriber_custom_enter_title' );
  	}
 
+ 	public function plugins_loaded() {
+		load_plugin_textdomain( 'simplenewsletter', false, SN__PLUGIN_DIR . 'languages' ); 
+ 	}
+
 	// create custom plugin settings menu
- 	public function create_menu() {
+ 	public function admin_menu() {
 	  add_menu_page('Subscribers', 'Subscribers', 'administrator', __FILE__, 'subscriber_settings_page', '');
 	  add_submenu_page( 'edit.php?post_type=' . $this->query_var , __('Settings'), __('Settings'), 'administrator', 'settings', array($this, 'initSettingsPage') );
 	}

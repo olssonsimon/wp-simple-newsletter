@@ -4,6 +4,7 @@
 * Description: A very simple but awsome newsletter
 * Version: 2.0
 * Author: Simon Olsson & Rasmus Kjellberg
+* Text Domain: simplenewsletter
 * @package simple-newsletter
 **/
 
