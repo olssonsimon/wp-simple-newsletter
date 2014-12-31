@@ -1,6 +1,6 @@
 <?php
 // Register custom post type
-function sd_subscriber() {
+function sn_subscriber() {
   $labels = array(
     'name'                => _x( 'Subscribers', 'Post Type General Name', 'seodesign' ),
     'singular_name'       => _x( 'Subscriber', 'Post Type Singular Name', 'seodesign' ),
