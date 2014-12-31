@@ -50,7 +50,6 @@ class SimpleNewsletter
 
 	// create custom plugin settings menu
  	public function admin_menu() {
-	  add_menu_page('Subscribers', 'Subscribers', 'administrator', __FILE__, 'subscriber_settings_page', '');
 	  add_submenu_page( 'edit.php?post_type=' . $this->query_var , __('Settings'), __('Settings'), 'administrator', 'settings', array($this, 'initSettingsPage') );
 	}
 

@@ -21,7 +21,6 @@ include("src/simple-newsletter.class.php");
 
 include_once "includes/posttype-subscriber.php";
 include_once "includes/custom-subscriber-fields.php";
-include_once "includes/admin-panel.php";
 include_once "includes/form-hooks.php";
 
 // TODO: Accept classes
