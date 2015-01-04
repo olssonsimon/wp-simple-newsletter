@@ -31,3 +31,11 @@ body {
 	padding: 10px 10px;
 	width: 200px;
 }
+
+#simple-newsletter-footer input[type="submit"] {
+	background-color: #212121 !important;
+	color: #fff !important;
+	padding: 10px 15px 10px 15px !important;
+	margin: 0px !important;
+	border: none !important;
+}
