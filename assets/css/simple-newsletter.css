@@ -1,0 +1,41 @@
+body {
+	margin-bottom: 50px;
+}
+
+#simple-newsletter-footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
+	background: rgba(255,255,255,1);
+}
+
+#simple-newsletter-footer .sn_inside {
+	width: 960px;
+	height: 50px;
+	line-height: 50px;
+	margin: 0px auto;
+	text-align: left;
+	color: #212121;
+	font-size: 16px;
+	font-family: Georgia;
+}
+
+#simple-newsletter-footer input[type="email"] {
+	border: none;
+	background: #efefef;
+	color: #121212;
+	font-size: 16px;
+	padding: 10px 10px;
+	width: 200px;
+}
+
+#simple-newsletter-footer input[type="submit"] {
+	background-color: #212121 !important;
+	color: #fff !important;
+	padding: 10px 15px 10px 15px !important;
+	margin: 0px !important;
+	border: none !important;
+}
